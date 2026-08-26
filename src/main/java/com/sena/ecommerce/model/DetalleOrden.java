@@ -13,7 +13,7 @@ import lombok.*;
 public class DetalleOrden {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long idDetalleOrden;
 	private String nombre;
 	private Integer cantidad;
 	private Double precio;

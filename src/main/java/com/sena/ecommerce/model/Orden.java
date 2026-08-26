@@ -16,7 +16,7 @@ import lombok.*;
 public class Orden {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long idOrden;
 	private String numero;
 	private LocalDate fechacreacion;
 	private LocalDate fecharecibida;
