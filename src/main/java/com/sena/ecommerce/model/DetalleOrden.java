@@ -20,8 +20,10 @@ public class DetalleOrden {
 	private Double total;
 
 	@ManyToOne
+	@JoinColumn(name = "idOrden")
 	private Orden orden;
 
 	@ManyToOne
+	@JoinColumn(name = "idProducto")
 	private Producto producto;
 }

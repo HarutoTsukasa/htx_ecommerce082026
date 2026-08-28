@@ -23,9 +23,10 @@ public class Orden {
 	private Double total;
 
 	@ManyToOne
+	@JoinColumn(name = "idUsuario")
 	private Usuario usuario;
 
-	@OneToMany(mappedBy = "orden", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "orden", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<DetalleOrden> detalle;
 
 }

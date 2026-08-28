@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+		<div class="container">
+			<a class="navbar-brand" href="/"><img id="logo" alt="logo" src="/img/logoEcommerce.jpg" width="40"
+					height="40" style="border-radius: 50%" /> Spirng E-commerce</a>
+			<div class="collapse navbar-collapse">
+				<ul class="navbar-nav me-auto">
+					<li class="nav-item"><a class="nav-link" href="/">Catálogo</a></li>
+					<li class="nav-item"
+						th:if="${session.usuarioTipo != null and session.usuarioTipo.name() == 'ADMIN'}">
+						<a class="nav-link" href="/admin/productos">Administrar</a>
+					</li>
+				</ul>
+
+				<div class="d-flex">
+					<button id="darkModeToggle" class="btn btn-outline-light me-2" data-bs-toggle="tooltip"
+						data-bs-placement="bottom" title="Modo Oscuro">
+						<i class="fas fa-moon"></i>
+					</button>
+				</div>
+
+				<ul class="navbar-nav align-items-lg-center">
+					<li class="nav-item" th:if="${session.usuarioId != null}">
+						<a class="nav-link" href="/carrito">Carrito</a>
+					</li>
+					<li class="nav-item" th:if="${session.usuarioId != null}">
+						<a class="nav-link" href="/pedidos">Mis pedidos</a>
+					</li>
+					<li class="nav-item" th:if="${session.usuarioId != null}">
+						<span class="navbar-text text-white-50 me-2"
+							th:text="'Hola, ' + ${session.usuarioNombre}"></span>
+					</li>
+					<li class="nav-item" th:if="${session.usuarioId != null}">
+						<a class="nav-link" href="/logout">Salir</a>
+					</li>
+					<li class="nav-item" th:if="${session.usuarioId == null}">
+						<a class="nav-link" href="/login">Ingresar</a>
+					</li>
+					<li class="nav-item" th:if="${session.usuarioId == null}">
+						<a class="nav-link" href="/registro">Registrarse</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</body>
+
+</html>

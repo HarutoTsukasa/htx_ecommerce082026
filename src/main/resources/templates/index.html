@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Catálogo - SENA Store</title>
+	<!-- Favicons -->
+	<link href="/img/logoEcommerce.jpg" rel="icon" />
+	<link href="/img/logoEcommerce.jpg" rel="apple-touch-icon" />
+	<!-- Bootstrap core CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+	<!-- Font Awesome 6 (Free CDN) -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+	<!-- Google Fonts: Inter para tipografía moderna -->
+	<link
+		href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.datatables.net/2.3.8/css/dataTables.dataTables.css" />
+	<link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+	<!-- Botón Volver Arriba -->
+	<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+		<i class="bi bi-arrow-up-short"></i>
+	</a>
+	<!-- Botón de WhatsApp -->
+	<a href="https://wa.me/+573209297401" target="_blank" class="whatsapp-btn btn btn-success rounded-circle"
+		data-bs-toggle="tooltip" data-bs-placement="left" title="Contacta con nosotros">
+		<i class="fa-brands fa-whatsapp"></i>
+	</a>
+	<nav th:replace="~{fragments :: nav}"></nav>
+	<section class="container pb-5">
+
+		<!-- Jumbotron Header -->
+		<header class="jumbotron my-4 rounded-4 shadow">
+			<h1 class="display-1 fw-bold"><i class="fas fa-bag-shopping"></i> Bienvenido a Spring Ecommerce</h1>
+			<p class="lead">Tu tienda de productos en Línea</p>
+		</header>
+		<!-- CARROUSEL -->
+		<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel"
+			style="padding-top: 1rem; padding-bottom: 1rem">
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+					aria-current="true" aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+					aria-label="Slide 2"></button>
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+					aria-label="Slide 3"></button>
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
+					aria-label="Slide 4"></button>
+			</div>
+			<div class="carousel-inner rounded-4 shadow">
+				<div class="carousel-item active">
+					<img src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae?auto=format&fit=crop&w=1200&h=600&q=80"
+						alt="Electrónicos" class="d-block w-100">
+				</div>
+				<div class="carousel-item">
+					<img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1200&h=600&q=80"
+						alt="Moda" class="d-block w-100">
+				</div>
+				<div class="carousel-item">
+					<img src="https://images.unsplash.com/photo-1725797951173-0b65ce460f08?auto=format&fit=crop&w=1200&h=600&q=80"
+						alt="Ofertas" class="d-block w-100">
+				</div>
+				<div class="carousel-item">
+					<img src="https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?auto=format&fit=crop&w=1200&h=600&q=80"
+						alt="Oficina" class="d-block w-100">
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+				data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+				data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+
+		<form class="d-flex mb-4" method="get" action="/" role="search">
+			<input class="form-control me-2" type="search" name="buscar" aria-label="Buscar"
+				placeholder="Buscar producto..." th:value="${buscar}">
+			<button class="btn btn-outline-success" type="submit"><i class="fas fa-magnifying-glass"
+					title="Buscar"></i></button>
+		</form>
+
+		<div class="row text-center">
+			<h2 class="section-title"><i class="fas fa-store"></i> Productos Destacados</h2>
+		</div>
+
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+			<div class="col" th:each="producto : ${productos}">
+				<div class="card h-100 shadow-sm">
+					<img th:if="${producto.imagen}" th:src="@{/images/{img} (img=${producto.imagen})}"
+						class="card-img-top" th:alt="${producto.imagen}" style="height:300px;object-fit:cover;">
+					<div class="card-body d-flex flex-column">
+						<h5 class="card-title" th:text="${producto.nombre}"></h5>
+						<p class="card-text fw-bold"
+							th:text="${'$ ' + {#strings.concat(#numbers.formatDecimal(producto.precio, 0, 'POINT', 0, 'POINT'))}}">
+						</p>
+						<a class="btn btn-primary mt-auto" th:href="@{'/productos/' + ${producto.idProducto}}"> <i
+								class="fas fa-eye"></i> Ver detalle</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p th:if="${#lists.isEmpty(productos)}" class="text-muted mt-4">No se encontraron productos.</p>
+	</div>
+	<!-- Formulario de Contacto -->
+	<section id="contacto" class="container mt-5 mb-5">
+		<div class="card-dashboard card p-3 p-lg-4">
+			<h2 class="section-title  text-center"><i class="fas fa-envelope"></i> Contáctanos</h2>
+			<div class="row g-4">
+				<div class="col-md-7">
+					<div class="card shadow-sm">
+						<div class="card-body">
+							<form id="contactForm">
+								<div class="form-floating mb-3">
+									<input type="text" class="form-control" id="contactName"
+										placeholder="Tu nombre completo" required>
+									<label for="contactName">Nombre completo</label>
+								</div>
+								<div class="form-floating mb-3">
+									<input type="email" class="form-control" id="contactEmail"
+										placeholder="tucorreo@ejemplo.com" required>
+									<label for="contactEmail">Email</label>
+								</div>
+								<div class="form-floating mb-3">
+									<input type="text" class="form-control" id="contactSubject" placeholder="Asunto"
+										required>
+									<label for="contactSubject">Asunto</label>
+								</div>
+								<div class="form-floating mb-3">
+									<textarea class="form-control" id="contactMessage" rows="4"
+										placeholder="Escribe tu mensaje..." required style="height: 120px"></textarea>
+									<label for="contactMessage">Mensaje</label>
+								</div>
+								<button type="submit" class="btn btn-info"><i class="fas fa-paper-plane"></i> Enviar
+									Mensaje</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="card h-100 shadow-sm">
+						<div class="card-body">
+							<h5 class="card-title"><i class="fas fa-circle-info fs-3"></i> Información de Contacto</h5>
+							<ul class="list-group list-group-flush mt-3">
+								<li class="list-group-item d-flex align-items-center gap-2"><i
+										class="fa-solid fa-location-dot fs-5"></i><span> Dirección: </span> Calle
+									Principal
+									123,
+									Ciudad
+								</li>
+								<li class="list-group-item d-flex align-items-center gap-2"><i
+										class="fa-solid fa-mobile-screen fs-5"></i><span> Teléfono: </span> +57 320
+									9297401
+								</li>
+								<li class="list-group-item d-flex align-items-center gap-2"><i
+										class="fa-solid fa-at fs-5"></i><span> Email: </span> info@springecommerce.com
+								</li>
+								<li class="list-group-item d-flex align-items-center gap-2"><i
+										class="fas fa-clock fs-5"></i><span> Horario: </span> Lun-Vie: 9:00 - 18:00</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Footer -->
+	<footer class="bg-dark text-white pt-5 pb-3 mt-5">
+		<div class="container">
+			<div class="row gy-4">
+				<div class="col-md-4">
+					<h3>Spring eCommerce</h3>
+					<p>Tienda online comprometida con los mejores productos, servicio excepcional y envíos rápidos.</p>
+				</div>
+				<div class="col-md-2">
+					<h5>Navegación</h5>
+					<ul class="nav flex-column">
+						<li><a href="#" class="nav-link p-0 text-white-50">Inicio</a></li>
+						<li><a href="#productos" class="nav-link p-0 text-white-50">Productos</a></li>
+						<li><a href="#contacto" class="nav-link p-0 text-white-50">Contacto</a></li>
+					</ul>
+				</div>
+				<div class="col-md-2">
+					<h5>Categorías</h5>
+					<ul class="nav flex-column">
+						<li><a href="#" class="nav-link p-0 text-white-50">Electrónicos</a></li>
+						<li><a href="#" class="nav-link p-0 text-white-50">Ropa</a></li>
+						<li><a href="#" class="nav-link p-0 text-white-50">Hogar</a></li>
+					</ul>
+				</div>
+				<div class="col-md-4">
+					<h5>Síguenos</h5>
+					<div class="d-flex gap-3 fs-4 mb-3">
+						<a href="https://www.facebook.com/" target="_blank" class="text-white-50"><i
+								class="fa-brands fa-facebook"></i></a>
+						<a href="https://x.com/" target="_blank" class="text-white-50"><i
+								class="fa-brands fa-x-twitter"></i></a>
+						<a href="https://www.instagram.com/" target="_blank" class="text-white-50"><i
+								class="fa-brands fa-instagram"></i></a>
+						<a href="https://www.youtube.com/" target="_blank" class="text-white-50"><i
+								class="fa-brands fa-youtube"></i></a>
+					</div>
+					<h6>Suscríbete a nuestro newsletter</h6>
+					<div class="input-group">
+						<input type="email" class="form-control" placeholder="Tu email" aria-label="Email">
+						<button class="btn btn-outline-light" type="button"><i class="fas fa-envelope-circle-check"></i>
+							Suscribir</button>
+					</div>
+				</div>
+			</div>
+			<hr class="my-4">
+			<div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-to">
+				<p class="mb-0">&copy; 2026 Spring eCommerce. Todos los derechos reservados.</p>
+			</div>
+		</div>
+	</footer>
+	<!-- Bootstrap core JavaScript -->
+	<script src="https://code.jquery.com/jquery-4.0.0.js"></script>
+	<script src="https://cdn.datatables.net/2.3.8/js/dataTables.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+		crossorigin="anonymous"></script>
+	<script src="js/scripts.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+body {
+	/*background-color: #f8f9fa;*/
+	font-family: 'Inter', sans-serif;
+}
+
+:root {
+	--border: #dee2e6;
+	--card-bg: #ffffff;
+	--muted: #6c757d;
+}
+
+html[data-bs-theme="dark"] {
+	--border: #2c2c3a;
+	--card-bg: #1e1e2f;
+	--muted: #adb5bd;
+}
+
+.card-img-top {
+	background-color: #e9ecef;
+}
+
+/* Mobile card view para tabla */
+@media (max-width: 640px) {
+
+	.catalog-table,
+	.catalog-table thead,
+	.catalog-table tbody,
+	.catalog-table tr,
+	.catalog-table th,
+	.catalog-table td {
+		display: block;
+	}
+
+	.catalog-table thead {
+		display: none;
+	}
+
+	.catalog-table tr {
+		border: 1px solid var(--border);
+		border-radius: 12px;
+		margin: 12px 0;
+		padding: 12px;
+		background: var(--card-bg);
+	}
+
+	.catalog-table td {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border-bottom: 1px solid var(--border);
+		padding: 8px 0;
+	}
+
+	.catalog-table td:last-child {
+		border: none;
+	}
+
+	.catalog-table td::before {
+		content: attr(data-label);
+		font-weight: 700;
+		font-size: 0.72rem;
+		text-transform: uppercase;
+		color: var(--muted);
+		margin-right: 12px;
+	}
+}
+
+.jumbotron {
+	background: linear-gradient(135deg, #6f42c1 0%, #5a32a3 100%);
+	border-radius: 1rem;
+	padding: 2rem;
+	color: white;
+	margin-bottom: 1.5rem;
+}
+
+.jumbotron .lead {
+	color: rgba(255, 255, 255, 0.9);
+}
+
+.carousel-item img {
+	height: 400px;
+	object-fit: cover;
+	border-radius: 0.75rem;
+}
+
+@media (max-width: 768px) {
+	.carousel-item img {
+		height: 250px;
+	}
+
+	.jumbotron {
+		padding: 1.5rem;
+	}
+
+	.display-1 {
+		font-size: calc(1.5rem + 3vw);
+	}
+}
+
+/* Botón Volver Arriba */
+.back-to-top {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background: #6f42c1;
+	color: white;
+	text-align: center;
+	line-height: 50px;
+	font-size: 24px;
+	z-index: 99;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.3s;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.back-to-top.show {
+	opacity: 1;
+	visibility: visible;
+}
+
+.back-to-top:hover {
+	background: #5a32a3;
+	transform: translateY(-5px);
+}
+
+.whatsapp-btn {
+	position: fixed;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 1000;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.3s ease;
+	filter: brightness(1.1) contrast(1.2);
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.7), 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.whatsapp-btn:hover {
+	transform: translateY(-50%) scale(1.1);
+}
+
+/* tablas y charts */
+.card-dashboard {
+	border: none;
+	border-radius: 1.2rem;
+	box-shadow: 0 5px 12px rgba(0, 0, 0, 0.03);
+	background: white;
+	margin-bottom: 1.5rem;
+}
+
+html[data-bs-theme="dark"] .card-dashboard {
+	background: #1e1e2f;
+	/* Fondo oscuro (puedes ajustar el color) */
+	color: #e0e0e0;
+	/* Texto claro */
+	border: 1px solid #2c2c3a;
+	/* Borde sutil para definir la tarjeta */
+	box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+	/* Sombra más intensa en oscuro */
+}
